@@ -19,7 +19,7 @@ const userService = {
 
             console.log('[AUTH_LOG] User final: %j', user)
 
-            res.status(200).json({token: generateToken({id: user._id})})
+            res.status(200).json({token: generateToken({id: user._id}), name: user.name})
 
         } catch (error) {
             console.log('[AUTH_ERROR_LOG] Error: ', error)

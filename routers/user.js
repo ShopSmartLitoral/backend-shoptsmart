@@ -3,6 +3,7 @@ const routers = express.Router();
 const userServices = require('../services/user')
 
 routers.post('/', (req,res) => {
+    console.log('[ROUTER_USER User create: %j', req.body)
     userServices.create(req,res)
 })
 routers.put('/:id', (req,res) => {

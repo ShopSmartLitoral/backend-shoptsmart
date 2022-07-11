@@ -30,16 +30,16 @@ const clientsService = {
     }
   },
   filter: async (req, res) => {
-    const { name, babyName, cpf, celPhone } = req.body;
+    const { name, email, cpf, celPhone } = req.body;
     try {
       if (name) {
         const data = await clients.find({
           name: { $regex: new RegExp(name), $options: "i" },
         });
         res.json(data).status(200);
-      } else if (babyName) {
+      } else if (email) {
         const data = await clients.find({
-          babyName: { $regex: new RegExp(babyName), $options: "i" },
+          cpf: { $regex: new RegExp(email), $options: "i" },
         });
         res.json(data).status(200);
       } else if (cpf) {
@@ -65,21 +65,14 @@ const clientsService = {
     try {
       console.log("recebi o payload: ", payload);
       if (
-        !payload.codNumber ||
         !payload.name ||
-        !payload.babyName ||
-        !payload.cpf ||
-        !payload.address ||
-        !payload.cep ||
-        !payload.city ||
         !payload.email ||
-        !payload.bairro ||
-        !payload.celPhone 
+        !payload.password 
       )
         throw { msg: "Dados inválidos", status: 400 };
         const existsClient = await clients.findOne({ cpf: payload.cpf });
         if (existsClient) 
-        throw { msg: "Cliente já existe no sistema", status: 400 };
+        throw { msg: "Email já cadastrado", status: 400 };
         console.log("será que existe? ", existsClient);
 
       const data = await clients.create(payload);
@@ -96,7 +89,7 @@ const clientsService = {
       const clientExists = await clients.find({ _id: id });
       if (!clientExists.length)
         throw {
-          msg: "Cliente não existe",
+          msg: "Email não cadastrado",
           status: 400,
         };
 
@@ -116,7 +109,7 @@ const clientsService = {
 
       const existsClient = await clients.findOne({ _id: id });
 
-      if (!existsClient) throw { msg: "Cliente não existe", status: 400 };
+      if (!existsClient) throw { msg: "Email não cadastrado", status: 400 };
 
       const data = await clients.updateOne({ _id: id }, payload, {
         multi: false,

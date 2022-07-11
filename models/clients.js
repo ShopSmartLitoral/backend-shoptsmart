@@ -2,17 +2,16 @@ const mongoose = require('mongoose');
 require('../config/mongodb');
 
 const schema = new mongoose.Schema({
-  codNumber: {
-    type: String,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
   },
-  cpf: {
+  password: {
     type: String,
-    required: true,
+    required: true
+  },
+  cpf: {
+    type: String
   },
   address: {
     type: String
@@ -27,7 +26,8 @@ const schema = new mongoose.Schema({
     type: String
   },
   email: {
-    type: String
+    type: String,
+    required: true
   },
   bairro: {
     type: String
@@ -35,9 +35,12 @@ const schema = new mongoose.Schema({
   celPhone: {
     type: String
   },
-  phone: {
-    type: String
+  cartList: {
+    type: Array
   },
+  buyList: {
+    type: Array
+  }
 }, { timestamps: true });
 const clients = mongoose.model('clients', schema);
 

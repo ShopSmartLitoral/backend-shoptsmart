@@ -8,7 +8,8 @@ routers.post('/get', (req,res) => {
 routers.post('/filter', (req,res) => {
     clientsService.filter(req,res)
 });
-routers.post('/createClient', (req,res) => {
+routers.post('/create', (req,res) => {
+    console.log('chamou a rota create')
     clientsService.create(req,res)
 });
 routers.delete('/:id', (req,res) => {
